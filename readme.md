@@ -1,3 +1,13 @@
+# Status
+
+[![Build Status](https://travis-ci.org/dilbertside/spring-mvc-start-archetype-demo.svg)](https://travis-ci.org/dilbertside/spring-mvc-start-archetype-demo)
+
+## Try it out!
+
+[Demo application](https://spring-mvc-start-demo.herokuapp.com/) on [Heroku](https://www.heroku.com/home)
+
+Application might be sleeping, please wait few seconds as it runs on [free plan](https://devcenter.heroku.com/articles/free-dyno-hours#dyno-sleeping), Thank you.
+
 #prerequisites
 
 - JDK 8
