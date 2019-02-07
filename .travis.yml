@@ -4,8 +4,7 @@ jdk:
 branches:
   only:
   - master
-before_install: mvn clean test -Ptest
-install: mvn clean package -Ph2 -Dmaven.test.skip
+install: mvn clean package -Ph2
 deploy:
   provider: heroku
   api_key:
