@@ -46,15 +46,6 @@ public class UserServiceTest {
 	@Mock
 	private PasswordEncoder passwordEncoder;
 
-	//@Test
-	//@DisplayName("")
-	public void shouldInitializeWithTwoDemoUsers() {
-		// act
-		//userService.initialize();
-		// assert
-		verify(userRepositoryMock, times(2)).save(any(User.class));
-	}
-
 	@Test
 	@DisplayName("raise exception when user not found")
 	public void shouldThrowExceptionWhenUserNotFound() {

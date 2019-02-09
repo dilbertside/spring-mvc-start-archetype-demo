@@ -1,4 +1,4 @@
-package org.spring.webapp.signup;
+package org.spring.webapp.web;
 
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.containsString;
@@ -46,11 +46,6 @@ public class SigninControllerTest extends WebSecurityConfigurationAware {
     .andDo(print())
     .andExpect(status().isFound())
     .andExpect(redirectedUrl("/"))
-    /*.andExpect(content().string(
-          allOf(
-              containsString("Welcome to the Spring"),
-              containsString("MVC Start application")
-          ))
-      )*/;
+    ;
   }
 }

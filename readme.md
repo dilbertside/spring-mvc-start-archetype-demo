@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/dilbertside/spring-mvc-start-archetype-demo.svg)](https://travis-ci.org/dilbertside/spring-mvc-start-archetype-demo)  [![Coverage Status](https://coveralls.io/repos/github/dilbertside/spring-mvc-start-archetype-demo/badge.svg?branch=master)](https://coveralls.io/github/dilbertside/spring-mvc-start-archetype-demo?branch=master)
 
+[ChangeLog](https://raw.githubusercontent.com/dilbertside/spring-mvc-start-archetype/master/changelog.md)
+
 ## Try it out!
 
 [Demo application](https://spring-mvc-start-demo.herokuapp.com/) on [Heroku](https://www.heroku.com/home)

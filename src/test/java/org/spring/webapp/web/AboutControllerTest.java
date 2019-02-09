@@ -1,4 +1,4 @@
-package org.spring.webapp.signup;
+package org.spring.webapp.web;
 
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.containsString;
