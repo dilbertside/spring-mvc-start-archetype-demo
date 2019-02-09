@@ -2,7 +2,8 @@ package org.spring.webapp.signup;
 
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.containsString;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -14,34 +15,33 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import org.spring.webapp.config.WebSecurityConfigurationAware;
 
 @Tag("controller")
-public class SignupControllerTest extends WebSecurityConfigurationAware {
+public class SigninControllerTest extends WebSecurityConfigurationAware {
     
   /**
-   * Test method for {@link org.spring.webapp.web.SignupController#signup(org.spring.webapp.dto.SignupForm, org.springframework.validation.Errors, org.springframework.web.servlet.mvc.support.RedirectAttributes)}.
+   * Test method for {@link org.spring.webapp.web.SigninController#signin()}.
    */
   @Test
-  @DisplayName("show signup form")
-  public void displaySignupForm() throws Exception {
-    mockMvc.perform(get("/signup").with(csrf().asHeader()))
+  @DisplayName("show signin form")
+  public void displaySigninForm() throws Exception {
+    mockMvc.perform(get("/signin").with(csrf().asHeader()))
       .andDo(print())
       .andExpect(status().isOk())
-      .andExpect(model().attributeExists("signupForm"))
-      .andExpect(view().name("signup/signup"))
+      .andExpect(view().name("signin/signin"))
       .andExpect(content().string(
           allOf(
-              containsString("<title>Signup</title>"),
-              containsString("<legend>Please Sign Up</legend>")
+              containsString("<title>Sign In</title>"),
+              containsString("<legend>Please Sign In</legend>")
           ))
       );
   }
   
   @Test
-  @DisplayName("proceed signup form")
-  public void signupForm() throws Exception {
-    mockMvc.perform(post("/signup")
+  @DisplayName("proceed authenticate form")
+  public void signinForm() throws Exception {
+    mockMvc.perform(post("/authenticate")
         .with(csrf().asHeader())
-        .param("email", "john@doe.com")
-        .param("password", "doe")
+        .param("username", "user")
+        .param("password", "user")
       )
     .andDo(print())
     .andExpect(status().isFound())

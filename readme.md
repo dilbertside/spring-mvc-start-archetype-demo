@@ -1,6 +1,6 @@
 # Status
 
-[![Build Status](https://travis-ci.org/dilbertside/spring-mvc-start-archetype-demo.svg)](https://travis-ci.org/dilbertside/spring-mvc-start-archetype-demo)
+[![Build Status](https://travis-ci.org/dilbertside/spring-mvc-start-archetype-demo.svg)](https://travis-ci.org/dilbertside/spring-mvc-start-archetype-demo)  [![Coverage Status](https://coveralls.io/repos/github/dilbertside/spring-mvc-start-archetype-demo/badge.svg?branch=master)](https://coveralls.io/github/dilbertside/spring-mvc-start-archetype-demo?branch=master)
 
 ## Try it out!
 
@@ -8,7 +8,7 @@
 
 Application might be sleeping, please wait few seconds as it runs on [free plan](https://devcenter.heroku.com/articles/free-dyno-hours#dyno-sleeping), Thank you.
 
-#prerequisites
+# Prerequisites
 
 - JDK 8
 - [Apache Maven](https://maven.apache.org/download.cgi) 3.5
