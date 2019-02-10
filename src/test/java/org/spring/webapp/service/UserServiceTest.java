@@ -1,4 +1,4 @@
-package org.spring.webapp.account;
+package org.spring.webapp.service;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
