@@ -6,7 +6,7 @@ branches:
   - master
 install: mvn clean package -Ph2
 after_success:
-  - mvn -P coverage clean jacoco:report coveralls:report
+  - mvn -P coverage clean test jacoco:report coveralls:report
 #deploy:
 #  provider: heroku
 #  api_key:
