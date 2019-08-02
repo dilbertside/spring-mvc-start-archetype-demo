@@ -16,7 +16,7 @@ import static org.springframework.security.test.web.servlet.response.SecurityMoc
 
 import org.spring.webapp.config.WebSecurityConfigurationAware;
 
-@Tag("controller")
+@Tag("signin controller")
 public class SigninControllerTest extends WebSecurityConfigurationAware {
     
   /**

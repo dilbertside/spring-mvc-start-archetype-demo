@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.github.dilbertside</groupId>
     <artifactId>bom</artifactId>
-    <version>5.1.14</version>
+    <version>5.1.16</version>
     <relativePath />
   </parent>
   <groupId>com.acme.webapp</groupId>
@@ -42,6 +42,10 @@
     <dependency>
       <groupId>com.github.ben-manes.caffeine</groupId>
       <artifactId>caffeine</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.github.dilbertside</groupId>
+      <artifactId>commons-dbs</artifactId>
     </dependency>
     <dependency>
       <groupId>com.google.guava</groupId>
@@ -260,34 +264,28 @@
       <plugin>
         <groupId>com.github.ekryd.sortpom</groupId>
         <artifactId>sortpom-maven-plugin</artifactId>
-        <version>${maven-sortpom-plugin.version}</version>
       </plugin>
 
       <plugin>
         <!-- https://github.com/heroku/heroku-maven-plugin -->
         <groupId>com.heroku.sdk</groupId>
         <artifactId>heroku-maven-plugin</artifactId>
-        <version>${heroku-maven-plugin.version}</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
-        <version>${maven-dependency-plugin.version}</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>${maven-resources-plugin.version}</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>${maven-surefire-plugin.version}</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
-        <version>${maven-war-plugin.version}</version>
       </plugin>
       <plugin>
         <groupId>org.apache.tomcat.maven</groupId>
@@ -438,6 +436,9 @@
     </profile>
     <profile>
       <id>docker</id>
+      <properties>
+        <maven.test.skip>true</maven.test.skip>
+      </properties>
       <build>
         <plugins>
           <plugin>
@@ -447,12 +448,12 @@
           </plugin>
         </plugins>
       </build>
-      <properties>
-        <maven.test.skip>true</maven.test.skip>
-      </properties>
     </profile>
     <profile>
       <id>jib</id>
+      <properties>
+        <maven.test.skip>true</maven.test.skip>
+      </properties>
       <build>
         <plugins>
           <plugin>
@@ -486,9 +487,6 @@
           </plugin>
         </plugins>
       </build>
-      <properties>
-        <maven.test.skip>true</maven.test.skip>
-      </properties>
     </profile>
     <profile>
       <id>coverage</id>

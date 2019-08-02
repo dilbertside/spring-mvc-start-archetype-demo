@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import org.spring.webapp.config.WebSecurityConfigurationAware;
 
-@Tag("controller")
+@Tag("about controller")
 public class AboutControllerTest extends WebSecurityConfigurationAware {
     
   /**

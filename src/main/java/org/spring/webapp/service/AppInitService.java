@@ -3,7 +3,7 @@
  */
 package org.spring.webapp.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.spring.webapp.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.ContextStartedEvent;
@@ -18,23 +18,18 @@ import org.springframework.stereotype.Service;
  *
  */
 @Service
+@lombok.RequiredArgsConstructor
 public class AppInitService {
 
-  private UserService userService;
+  final UserService userService;
 
-  private Environment environment;
+  final Environment environment;
   
   @Value("${app.security.user.username:user}")
   private String user;
   
   @Value("${app.security.user.password:user}")
   private String pw;
-
-  @Autowired
-  public AppInitService(UserService userService, Environment environment) {
-    this.userService = userService;
-    this.environment = environment;
-  }
 
   /**
    * called twice: once by root context and 2nd time by dispatcher
