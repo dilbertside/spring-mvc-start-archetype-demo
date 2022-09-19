@@ -13,6 +13,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringExclude;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.data.domain.Persistable;
+import org.springframework.lang.Nullable;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -35,6 +36,7 @@ public abstract class AbstractPersistable<PK extends Serializable> implements Pe
    * (non-Javadoc)
    * @see org.springframework.data.domain.Persistable#getId()
    */
+  @Nullable
   @Override
   public PK getId() {
     return this.id;
@@ -46,7 +48,7 @@ public abstract class AbstractPersistable<PK extends Serializable> implements Pe
    * @param id
    *          the id to set
    */
-  public void setId(final PK id) {
+  public void setId(@Nullable final PK id) {
     this.id = id;
   }
 
@@ -56,6 +58,7 @@ public abstract class AbstractPersistable<PK extends Serializable> implements Pe
    */
   @JsonIgnore
   @Override
+  @Transient
   public boolean isNew() {
     return null == getId();
   }

@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
-import org.zalando.problem.ProblemModule;
+import org.zalando.problem.jackson.ProblemModule;
 import org.zalando.problem.violations.ConstraintViolationProblemModule;
 
 /**
@@ -27,7 +27,7 @@ public class JacksonConfiguration {
    * Module for serialization/deserialization of RFC7807 Problem.
    */
   @Bean
-  ProblemModule problemModule(Environment environment) {
+  org.zalando.problem.jackson.ProblemModule problemModule(Environment environment) {
     ProblemModule problemModule = new ProblemModule();
     problemModule = problemModule.withStackTraces(environment.acceptsProfiles(Profiles.of("prod")) ? false : true);
     return problemModule;

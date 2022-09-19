@@ -9,9 +9,11 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.spring.webapp.Application;
 
 @Configuration
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:" + ApplicationConfig.APPLICATION_PROPERTIES_FILENAME)
 @ComponentScan(basePackageClasses = Application.class)
 public class ApplicationConfig {
+  
+  final public static String APPLICATION_PROPERTIES_FILENAME = "application.properties";
 
   @Bean
   public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {

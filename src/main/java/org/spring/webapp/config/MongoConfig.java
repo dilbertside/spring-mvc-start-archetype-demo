@@ -1,21 +1,19 @@
 package org.spring.webapp.config;
 
-import java.net.UnknownHostException;
-
-import com.mongodb.Mongo;
-import com.mongodb.MongoClient;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.data.mongodb.MongoDatabaseFactory;
+import org.springframework.data.mongodb.core.MongoClientFactoryBean;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
+import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
 import org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper;
 import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 import org.springframework.data.mongodb.core.convert.MongoTypeMapper;
 import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+
+//import com.mongodb.client.Mongo;
+import com.mongodb.client.MongoClient;
 
 
 @Configuration
@@ -24,12 +22,12 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 public class MongoConfig {
 
     @Bean
-    public MongoDbFactory mongoDbFactory() throws UnknownHostException {
-        return new SimpleMongoDbFactory(new MongoClient(), "webapp");
+    public MongoDatabaseFactory mongoDbFactory() throws Exception {
+        return new SimpleMongoClientDatabaseFactory(mongoClient(), "webapp");
     }
 
     @Bean
-    public MongoTemplate mongoTemplate() throws UnknownHostException {
+    public MongoTemplate mongoTemplate() throws Exception {
         MongoTemplate template = new MongoTemplate(mongoDbFactory(), mongoConverter());
         return template;
     }
@@ -43,9 +41,14 @@ public class MongoConfig {
     public MongoMappingContext mongoMappingContext() {
         return new MongoMappingContext();
     }
+    
+    @Bean
+    public MongoClient mongoClient() throws Exception {
+        return new MongoClientFactoryBean().getObject();
+    }
 
     @Bean
-    public MappingMongoConverter mongoConverter() throws UnknownHostException {
+    public MappingMongoConverter mongoConverter() throws Exception {
         MappingMongoConverter converter = new MappingMongoConverter(mongoDbFactory(), mongoMappingContext());
         converter.setTypeMapper(mongoTypeMapper());
         return converter;

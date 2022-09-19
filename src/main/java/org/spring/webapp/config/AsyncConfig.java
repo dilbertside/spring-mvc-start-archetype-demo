@@ -20,14 +20,14 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 
 @Configuration
 @EnableScheduling
-@EnableAsync(proxyTargetClass = true, mode = AdviceMode.ASPECTJ)
+@EnableAsync(proxyTargetClass = true, mode = AdviceMode.PROXY)
 public class AsyncConfig implements AsyncConfigurer, SchedulingConfigurer {
 
   @Autowired
   private Environment environment;
 
   /**
-   * for use with alert engine event processor and schedule tasks
+   * for use with schedule tasks
    * @return {@link ThreadPoolTaskScheduler}
    */
   @Bean(destroyMethod = "shutdown")
@@ -35,10 +35,10 @@ public class AsyncConfig implements AsyncConfigurer, SchedulingConfigurer {
     ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
     threadPoolTaskScheduler.setThreadNamePrefix("sch-");
     threadPoolTaskScheduler.setThreadGroupName("scheduler-");
-    threadPoolTaskScheduler.setPoolSize(environment.getProperty("poolSizeShedule", Integer.class, 50));
+    threadPoolTaskScheduler.setPoolSize(environment.getProperty("poolSizeSchedule", Integer.class, 50));
     threadPoolTaskScheduler.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
-    if (this.environment.getProperty("WaitForTasksToCompleteOnShutdown") != null) {
-      threadPoolTaskScheduler.setWaitForTasksToCompleteOnShutdown(this.environment.getProperty("WaitForTasksToCompleteOnShutdown", Boolean.class, false));
+    if (this.environment.getProperty("waitForTasksToCompleteOnShutdown") != null) {
+      threadPoolTaskScheduler.setWaitForTasksToCompleteOnShutdown(this.environment.getProperty("waitForTasksToCompleteOnShutdown", Boolean.class, false));
     }
     return threadPoolTaskScheduler;
   }
@@ -49,7 +49,7 @@ public class AsyncConfig implements AsyncConfigurer, SchedulingConfigurer {
   @Override
   @Bean(name = { "taskExecutor" })
   public Executor getAsyncExecutor() {
-    return Executors.newScheduledThreadPool(5, scheduler());
+    return Executors.newScheduledThreadPool(environment.getProperty("corePoolSize", Integer.class, 5), scheduler());
   }
 
   @Override

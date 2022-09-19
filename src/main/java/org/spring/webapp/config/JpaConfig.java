@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.core.env.Profiles;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -77,7 +78,20 @@ public class JpaConfig {
     Map<String, Object> jpaProperties = entityManagerFactoryBean.getJpaPropertyMap();
     jpaProperties.put(org.hibernate.cfg.Environment.HBM2DDL_AUTO, environment.getProperty("hibernate.hbm2ddl.auto", "update"));
     jpaProperties.put(org.hibernate.cfg.Environment.FORMAT_SQL, environment.getProperty("hibernate.format_sql", "false"));
+    if(environment.acceptsProfiles(Profiles.of("H2"))) {
+      jpaProperties.put(org.hibernate.cfg.Environment.HBM2DDL_IMPORT_FILES, "schema.sql,data.sql");
+      jpaProperties.put(org.hibernate.cfg.Environment.HBM2DDL_HALT_ON_ERROR, "false");
+    }
     jpaProperties.put(org.hibernate.cfg.Environment.USE_SQL_COMMENTS, environment.getProperty("hibernate.use_sql_comments", "false"));
+    jpaProperties.put(org.hibernate.cfg.Environment.HBM2DLL_CREATE_NAMESPACES, environment.getProperty("hibernate.create_namespaces", "true"));
+    jpaProperties.put(org.hibernate.cfg.Environment.HBM2DLL_CREATE_SCHEMAS, environment.getProperty("hibernate.create_database_schemas", "true"));
+
+    if (dataSource instanceof HikariDataSource) {
+    	jpaProperties.put("hibernate.hikari.connectionTimeout", ((HikariDataSource)dataSource).getConnectionTimeout());
+      jpaProperties.put("hibernate.hikari.minimumIdle", ((HikariDataSource)dataSource).getMinimumIdle());
+      jpaProperties.put("hibernate.hikari.maximumPoolSize", ((HikariDataSource)dataSource).getMaximumPoolSize());
+      jpaProperties.put("hibernate.hikari.idleTimeout", ((HikariDataSource)dataSource).getIdleTimeout());    	
+    }
     return entityManagerFactoryBean;
   }
 

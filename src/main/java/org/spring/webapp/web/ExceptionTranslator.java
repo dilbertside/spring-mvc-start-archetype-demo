@@ -27,8 +27,8 @@ import com.dbs.lib.Utils;
 import com.dbs.lib.dto.SimpleResponse;
 import com.dbs.lib.dto.enumeration.ErrorCode;
 import com.dbs.lib.exception.ServiceException;
+import com.dbs.lib.problem.ProblemFieldError;
 import com.google.common.base.Throwables;
-import org.spring.webapp.dto.ProblemFieldError;
 import org.spring.webapp.web.support.ErrorConstants;
 
 /**
@@ -87,7 +87,7 @@ public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait
   @Override
   public ResponseEntity<Problem> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, @Nonnull NativeWebRequest request) {
     BindingResult result = ex.getBindingResult();
-    List<ProblemFieldError> fieldErrors = result.getFieldErrors().stream().map(f -> new ProblemFieldError(f.getObjectName(), f.getField(), f.getCode()))
+    List<ProblemFieldError> fieldErrors = result.getFieldErrors().stream().map(f -> new ProblemFieldError(f.getObjectName(), f.getField(), f.getDefaultMessage(), f.getCode()))
         .collect(Collectors.toList());
 
     Problem problem = Problem.builder()
@@ -114,6 +114,7 @@ public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait
                 .body(new SimpleResponse<>(ErrorCode.error, Utils.errorMessage(e)));
   }
   
+  @Override
   @ExceptionHandler(ServletRequestBindingException.class)
   public ResponseEntity<Problem> handleServletRequestBinding(final ServletRequestBindingException exception, final NativeWebRequest request) {
     return create(Status.BAD_REQUEST, exception, request);

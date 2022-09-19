@@ -1,19 +1,7 @@
-# Status
-
-[![Build Status](https://travis-ci.org/dilbertside/spring-mvc-start-archetype-demo.svg)](https://travis-ci.org/dilbertside/spring-mvc-start-archetype-demo)  [![Coverage Status](https://coveralls.io/repos/github/dilbertside/spring-mvc-start-archetype-demo/badge.svg?branch=master)](https://coveralls.io/github/dilbertside/spring-mvc-start-archetype-demo?branch=master)
-
-[ChangeLog](https://raw.githubusercontent.com/dilbertside/spring-mvc-start-archetype/master/changelog.md)
-
-## Try it out!
-
-[Demo application](https://spring-mvc-start-demo.herokuapp.com/) on [Heroku](https://www.heroku.com/home)
-
-Application might be sleeping, please wait few seconds as it runs on [free plan](https://devcenter.heroku.com/articles/free-dyno-hours#dyno-sleeping), Thank you.
-
 # Prerequisites
 
-- JDK 8
-- [Apache Maven](https://maven.apache.org/download.cgi) 3.5
+- JDK 17
+- [Apache Maven](https://maven.apache.org/download.cgi) 3.6.3
 
 ## Project Lombok
 This project uses Project [Lombok](https://projectlombok.org/) https://projectlombok.org/ to reduce bloated class property accessors
@@ -99,7 +87,7 @@ It uses Google [jib-maven-plugin](https://github.com/GoogleContainerTools/jib/tr
 
 
 ```bash
-mvn install -Pjib
+mvn install -Pjib,dev,h2
 ```
 or with a maven container 
 

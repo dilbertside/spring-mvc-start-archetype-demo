@@ -7,13 +7,16 @@ import java.util.concurrent.TimeUnit;
 import javax.naming.ServiceUnavailableException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.format.support.FormattingConversionService;
 import org.springframework.http.CacheControl;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.async.DeferredResult;
@@ -27,6 +30,7 @@ import org.springframework.web.servlet.config.annotation.DefaultServletHandlerCo
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
+import org.springframework.web.servlet.resource.ResourceUrlProvider;
 import org.springframework.web.servlet.resource.WebJarsResourceResolver;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
@@ -44,10 +48,12 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
   @Autowired
   ThreadPoolTaskScheduler scheduler;
 
+  
   @Override
-  public RequestMappingHandlerMapping requestMappingHandlerMapping() {
-    RequestMappingHandlerMapping requestMappingHandlerMapping = super.requestMappingHandlerMapping();
-    requestMappingHandlerMapping.setUseSuffixPatternMatch(false);
+  public RequestMappingHandlerMapping requestMappingHandlerMapping(@Qualifier("mvcContentNegotiationManager") ContentNegotiationManager contentNegotiationManager,
+  		@Qualifier("mvcConversionService") FormattingConversionService conversionService,
+  		@Qualifier("mvcResourceUrlProvider") ResourceUrlProvider resourceUrlProvider) {
+    RequestMappingHandlerMapping requestMappingHandlerMapping = super.requestMappingHandlerMapping(contentNegotiationManager, conversionService, resourceUrlProvider);
     requestMappingHandlerMapping.setUseTrailingSlashMatch(false);
     return requestMappingHandlerMapping;
   }

@@ -29,7 +29,7 @@ public class CacheConfig extends CachingConfigurerSupport {
   private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @PreDestroy
-  public void destroy() {
+  public void close() {
     logger.info("Closing Cache Manager");
   }
 
